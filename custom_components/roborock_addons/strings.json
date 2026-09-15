@@ -1,0 +1,14 @@
+{
+  "config": {
+    "abort": {
+      "roborock_not_configured": "Set up the Roborock integration before adding Roborock Add-ons.",
+      "single_instance_allowed": "Roborock Add-ons is already configured."
+    },
+    "step": {
+      "user": {
+        "description": "Add extra entities to your existing Roborock devices.",
+        "title": "Set up Roborock Add-ons"
+      }
+    }
+  }
+}
