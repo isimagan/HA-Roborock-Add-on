@@ -1,0 +1,8 @@
+{
+  "domain": "roborock_addons",
+  "name": "Roborock Add-ons",
+  "codeowners": ["@isimagan"],
+  "documentation": "https://github.com/isimagan/HA-Roborock-Add-on",
+  "issue_tracker": "https://github.com/isimagan/HA-Roborock-Add-on/issues",
+  "version": "0.1.0"
+}
