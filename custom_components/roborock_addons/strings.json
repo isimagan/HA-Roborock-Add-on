@@ -1,0 +1,59 @@
+{
+  "config": {
+    "abort": {
+      "roborock_not_configured": "Set up the Roborock integration before adding Roborock Add-ons.",
+      "single_instance_allowed": "Roborock Add-ons is already configured."
+    },
+    "step": {
+      "user": {
+        "data": {
+          "charging_status": "Charging status",
+          "fan_speed": "Fan speed selector",
+          "off_peak": "Off-peak charging window",
+          "water_equipment": "Missing water equipment"
+        },
+        "description": "Select the extra entities to create for every existing Roborock vacuum.",
+        "title": "Set up Roborock Add-ons"
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "off_peak": {
+        "name": "Off-peak charging window"
+      },
+      "water_equipment": {
+        "name": "Water equipment problem"
+      }
+    },
+    "select": {
+      "fan_speed": {
+        "name": "Fan speed"
+      }
+    },
+    "sensor": {
+      "charging_status": {
+        "name": "Charging status",
+        "state": {
+          "charge_pending": "Charge pending",
+          "charged": "Charged",
+          "charging": "Charging"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "charging_status": "Charging status",
+          "fan_speed": "Fan speed selector",
+          "off_peak": "Off-peak charging window",
+          "water_equipment": "Missing water equipment"
+        },
+        "description": "Select the extra entities to create for every existing Roborock vacuum.",
+        "title": "Choose entities"
+      }
+    }
+  }
+}

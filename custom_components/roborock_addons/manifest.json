@@ -2,7 +2,12 @@
   "domain": "roborock_addons",
   "name": "Roborock Add-ons",
   "codeowners": ["@isimagan"],
+  "config_flow": true,
+  "dependencies": ["roborock"],
   "documentation": "https://github.com/isimagan/HA-Roborock-Add-on",
+  "integration_type": "service",
+  "iot_class": "calculated",
   "issue_tracker": "https://github.com/isimagan/HA-Roborock-Add-on/issues",
-  "version": "0.1.0"
+  "single_config_entry": true,
+  "version": "0.2.0"
 }
