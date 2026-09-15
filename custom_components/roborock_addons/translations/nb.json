@@ -1,0 +1,14 @@
+{
+  "config": {
+    "abort": {
+      "roborock_not_configured": "Konfigurer Roborock-integrasjonen før du legger til Roborock Add-ons.",
+      "single_instance_allowed": "Roborock Add-ons er allerede konfigurert."
+    },
+    "step": {
+      "user": {
+        "description": "Legg til ekstra entiteter for Roborock-enhetene dine.",
+        "title": "Konfigurer Roborock Add-ons"
+      }
+    }
+  }
+}
