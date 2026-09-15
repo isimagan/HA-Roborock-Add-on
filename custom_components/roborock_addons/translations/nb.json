@@ -6,8 +6,53 @@
     },
     "step": {
       "user": {
-        "description": "Legg til ekstra entiteter for Roborock-enhetene dine.",
+        "data": {
+          "charging_status": "Ladestatus",
+          "fan_speed": "Valg av viftehastighet",
+          "off_peak": "Lading utenfor pristopp",
+          "water_equipment": "Manglende vannutstyr"
+        },
+        "description": "Velg hvilke ekstra entiteter som skal opprettes for alle eksisterende Roborock-støvsugere.",
         "title": "Konfigurer Roborock Add-ons"
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "off_peak": {
+        "name": "Lading utenfor pristopp"
+      },
+      "water_equipment": {
+        "name": "Problem med vannutstyr"
+      }
+    },
+    "select": {
+      "fan_speed": {
+        "name": "Viftehastighet"
+      }
+    },
+    "sensor": {
+      "charging_status": {
+        "name": "Ladestatus",
+        "state": {
+          "charge_pending": "Venter på lading",
+          "charged": "Fulladet",
+          "charging": "Lader"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "charging_status": "Ladestatus",
+          "fan_speed": "Valg av viftehastighet",
+          "off_peak": "Lading utenfor pristopp",
+          "water_equipment": "Manglende vannutstyr"
+        },
+        "description": "Velg hvilke ekstra entiteter som skal opprettes for alle eksisterende Roborock-støvsugere.",
+        "title": "Velg entiteter"
       }
     }
   }
