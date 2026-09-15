@@ -1,8 +1,11 @@
 """Config flow for Roborock Add-ons."""
 
+from typing import Any
+
 import voluptuous as vol
 
 from homeassistant import config_entries
+from homeassistant.config_entries import ConfigFlowResult
 
 from .const import DOMAIN, ROBOROCK_DOMAIN
 
@@ -13,8 +16,8 @@ class RoborockAddonsConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
 
     async def async_step_user(
-        self, user_input: dict[str, object] | None = None
-    ) -> config_entries.ConfigFlowResult:
+        self, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
         """Handle setup initiated by the user."""
         if self._async_current_entries():
             return self.async_abort(reason="single_instance_allowed")
