@@ -1,13 +1,3 @@
-## v0.3.0
-Ny entitet: `switch.roborock_stop_before_dock`
-
-Hvis på så stopper støvsuger når den endrer til returning to dock. Når den har stoppet så slås den av. Den slås også av når støvsuger er dokket. 
-
-| Vacuum's state becomes... | Switch |
-|---|---|
-| Returning to dock | 1. Stop vacuum. 2. Turn off switch |
-| Docked | Turn off switch |
-
 ## v0.4.0
 Spør meg om dette
 
