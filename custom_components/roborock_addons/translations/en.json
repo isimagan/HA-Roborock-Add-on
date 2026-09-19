@@ -9,8 +9,8 @@
         "data": {
           "charging_status": "Charging status",
           "fan_speed": "Fan speed selector",
-          "off_peak": "Off-peak charging window",
-          "water_equipment": "Missing water equipment"
+          "off_peak": "Off-peak",
+          "water_equipment": "Water equipment"
         },
         "description": "Select the extra entities to create for every existing Roborock vacuum.",
         "title": "Set up Roborock Add-ons"
@@ -20,10 +20,10 @@
   "entity": {
     "binary_sensor": {
       "off_peak": {
-        "name": "Off-peak charging window"
+        "name": "Off-peak"
       },
       "water_equipment": {
-        "name": "Water equipment problem"
+        "name": "Water equipment"
       }
     },
     "select": {
@@ -48,8 +48,8 @@
         "data": {
           "charging_status": "Charging status",
           "fan_speed": "Fan speed selector",
-          "off_peak": "Off-peak charging window",
-          "water_equipment": "Missing water equipment"
+          "off_peak": "Off-peak",
+          "water_equipment": "Water equipment"
         },
         "description": "Select the extra entities to create for every existing Roborock vacuum.",
         "title": "Choose entities"

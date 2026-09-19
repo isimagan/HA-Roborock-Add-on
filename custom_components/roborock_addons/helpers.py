@@ -7,7 +7,6 @@ from typing import Any
 from homeassistant.const import STATE_UNAVAILABLE, STATE_UNKNOWN
 from homeassistant.core import Event, HomeAssistant, State, callback
 from homeassistant.helpers import device_registry as dr, entity_registry as er
-from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.event import async_track_state_change_event
 
@@ -20,7 +19,7 @@ class RoborockVacuumInfo:
 
     entity_id: str
     unique_id: str
-    device_info: DeviceInfo
+    device_entry: dr.AnyDeviceEntry
     sources: dict[str, str]
 
 
@@ -60,7 +59,7 @@ def async_get_roborock_vacuums(hass: HomeAssistant) -> list[RoborockVacuumInfo]:
                 RoborockVacuumInfo(
                     entity_id=vacuum_entry.entity_id,
                     unique_id=vacuum_entry.unique_id,
-                    device_info=DeviceInfo(identifiers=set(device.identifiers)),
+                    device_entry=device,
                     sources=sources,
                 )
             )
@@ -99,7 +98,10 @@ class RoborockAddonEntity(Entity):
         """Initialize an add-on entity."""
         self.vacuum = vacuum
         self._attr_unique_id = f"{vacuum.unique_id}_{key}"
-        self._attr_device_info = vacuum.device_info
+        # Attach directly to the device owned by the official Roborock
+        # integration. This follows Home Assistant's helper-entity model and
+        # avoids creating a separate Roborock Add-ons device.
+        self.device_entry = vacuum.device_entry
         self._source_entity_ids = {
             vacuum.entity_id,
             *(vacuum.sources[key] for key in source_keys if key in vacuum.sources),

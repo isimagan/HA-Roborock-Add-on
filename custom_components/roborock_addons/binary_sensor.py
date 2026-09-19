@@ -22,6 +22,7 @@ from .const import (
     SOURCE_OFF_PEAK_START,
     SOURCE_OFF_PEAK_SWITCH,
     SOURCE_WATER_BOX_ATTACHED,
+    SOURCE_WATER_SHORTAGE,
 )
 from .helpers import (
     RoborockAddonEntity,
@@ -108,7 +109,11 @@ class RoborockWaterEquipmentBinarySensor(RoborockAddonEntity, BinarySensorEntity
         super().__init__(
             vacuum,
             ENTITY_WATER_EQUIPMENT,
-            (SOURCE_WATER_BOX_ATTACHED, SOURCE_MOP_ATTACHED),
+            (
+                SOURCE_WATER_BOX_ATTACHED,
+                SOURCE_MOP_ATTACHED,
+                SOURCE_WATER_SHORTAGE,
+            ),
         )
 
     @property
@@ -117,6 +122,7 @@ class RoborockWaterEquipmentBinarySensor(RoborockAddonEntity, BinarySensorEntity
         states = (
             self.source_state(SOURCE_WATER_BOX_ATTACHED),
             self.source_state(SOURCE_MOP_ATTACHED),
+            self.source_state(SOURCE_WATER_SHORTAGE),
         )
         return super().available and any(
             state is not None
@@ -126,11 +132,37 @@ class RoborockWaterEquipmentBinarySensor(RoborockAddonEntity, BinarySensorEntity
 
     @property
     def is_on(self) -> bool:
-        """Return true when the water box or mop is not attached."""
-        return any(
+        """Return true when water equipment is missing or out of water."""
+        attachment_missing = any(
             state is not None and state.state == STATE_OFF
             for state in (
                 self.source_state(SOURCE_WATER_BOX_ATTACHED),
                 self.source_state(SOURCE_MOP_ATTACHED),
             )
         )
+        water_shortage = self.source_state(SOURCE_WATER_SHORTAGE)
+        return attachment_missing or (
+            water_shortage is not None and water_shortage.state == STATE_ON
+        )
+
+    @property
+    def extra_state_attributes(self) -> dict[str, bool | None]:
+        """Return normalized water-equipment details."""
+        return {
+            "mop": self._source_is_on(SOURCE_MOP_ATTACHED),
+            "waterbox": self._source_is_on(SOURCE_WATER_BOX_ATTACHED),
+            # The Roborock source reports a shortage, so invert it to expose
+            # whether water is present.
+            "water": self._source_is_on(SOURCE_WATER_SHORTAGE, invert=True),
+        }
+
+    def _source_is_on(self, key: str, *, invert: bool = False) -> bool | None:
+        """Return a source state as a semantic boolean."""
+        state = self.source_state(key)
+        if state is None or state.state in (STATE_UNAVAILABLE, STATE_UNKNOWN):
+            return None
+        if state.state == STATE_ON:
+            return not invert
+        if state.state == STATE_OFF:
+            return invert
+        return None
