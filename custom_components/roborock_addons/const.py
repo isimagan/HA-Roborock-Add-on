@@ -11,15 +11,22 @@ ENTITY_FAN_SPEED = "fan_speed"
 ENTITY_OFF_PEAK = "off_peak"
 ENTITY_WATER_EQUIPMENT = "water_equipment"
 ENTITY_CHARGING_STATUS = "charging_status"
+ENTITY_STOP_BEFORE_DOCK = "stop_before_dock"
 
 ALL_ENTITIES = (
     ENTITY_FAN_SPEED,
     ENTITY_OFF_PEAK,
     ENTITY_WATER_EQUIPMENT,
     ENTITY_CHARGING_STATUS,
+    ENTITY_STOP_BEFORE_DOCK,
 )
 
-PLATFORMS = (Platform.SELECT, Platform.BINARY_SENSOR, Platform.SENSOR)
+PLATFORMS = (
+    Platform.SELECT,
+    Platform.BINARY_SENSOR,
+    Platform.SENSOR,
+    Platform.SWITCH,
+)
 
 SOURCE_BATTERY = "battery"
 SOURCE_MOP_ATTACHED = "water_box_carriage_status"

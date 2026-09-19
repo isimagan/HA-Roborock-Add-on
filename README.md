@@ -25,6 +25,7 @@ You can change the selection later by opening **Roborock Add-ons → Configure**
 - **Off-peak** (`binary_sensor`) — on while the configured Roborock off-peak period is active.
 - **Water equipment** (`binary_sensor`) — on when the water box or mop is not attached, or when the water tank is empty. It uses `mdi:water-off` when there is a problem and `mdi:water` otherwise. Its `mop`, `waterbox`, and `water` attributes show which equipment is available.
 - **Charging status** (`sensor`) — reports `Charged`, `Charge pending`, or `Charging`.
+- **Stop before dock** (`switch`) — when armed, stops the vacuum as soon as it starts returning to the dock, then turns itself off. It also turns itself off if the vacuum reaches the dock.
 
 The Roborock off-peak switch and start/end time entities are disabled by default in some Home Assistant versions. Enable those source entities on the Roborock device page before using the off-peak or charging-status add-ons.
 

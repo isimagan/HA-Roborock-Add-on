@@ -10,6 +10,7 @@
           "charging_status": "Charging status",
           "fan_speed": "Fan speed selector",
           "off_peak": "Off-peak",
+          "stop_before_dock": "Stop before dock",
           "water_equipment": "Water equipment"
         },
         "description": "Select the extra entities to create for every existing Roborock vacuum.",
@@ -31,6 +32,11 @@
         "name": "Fan speed"
       }
     },
+    "switch": {
+      "stop_before_dock": {
+        "name": "Stop before dock"
+      }
+    },
     "sensor": {
       "charging_status": {
         "name": "Charging status",
@@ -49,6 +55,7 @@
           "charging_status": "Charging status",
           "fan_speed": "Fan speed selector",
           "off_peak": "Off-peak",
+          "stop_before_dock": "Stop before dock",
           "water_equipment": "Water equipment"
         },
         "description": "Select the extra entities to create for every existing Roborock vacuum.",
