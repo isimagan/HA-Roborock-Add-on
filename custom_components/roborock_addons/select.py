@@ -4,7 +4,7 @@ from typing import Any
 
 from homeassistant.components.select import SelectEntity
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import ATTR_ENTITY_ID
+from homeassistant.const import ATTR_ENTITY_ID, EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
@@ -42,6 +42,7 @@ async def async_setup_entry(
 class RoborockFanSpeedSelect(RoborockAddonEntity, SelectEntity):
     """Select the fan speed of a Roborock vacuum."""
 
+    _attr_entity_category = EntityCategory.CONFIG
     _attr_translation_key = "fan_speed"
 
     def __init__(self, vacuum: RoborockVacuumInfo) -> None:

@@ -146,6 +146,11 @@ class RoborockWaterEquipmentBinarySensor(RoborockAddonEntity, BinarySensorEntity
         )
 
     @property
+    def icon(self) -> str:
+        """Return the icon for the current water-equipment state."""
+        return "mdi:water" if self.is_on else "mdi:water-off"
+
+    @property
     def extra_state_attributes(self) -> dict[str, bool | None]:
         """Return normalized water-equipment details."""
         return {

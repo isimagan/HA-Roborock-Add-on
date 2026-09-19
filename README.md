@@ -21,9 +21,9 @@ You can change the selection later by opening **Roborock Add-ons → Configure**
 
 ## Available entities
 
-- **Fan speed** (`select`) — lists the speeds supported by the vacuum and converts names such as `max_plus` to `Max+`.
+- **Fan speed** (`select`, configuration) — lists the speeds supported by the vacuum and converts names such as `max_plus` to `Max+`.
 - **Off-peak** (`binary_sensor`) — on while the configured Roborock off-peak period is active.
-- **Water equipment** (`binary_sensor`) — on when the water box or mop is not attached, or when the water tank is empty. Its `mop`, `waterbox`, and `water` attributes show which equipment is available.
+- **Water equipment** (`binary_sensor`) — on when the water box or mop is not attached, or when the water tank is empty. It uses `mdi:water` while on and `mdi:water-off` while off. Its `mop`, `waterbox`, and `water` attributes show which equipment is available.
 - **Charging status** (`sensor`) — reports `Charged`, `Charge pending`, or `Charging`.
 
 The Roborock off-peak switch and start/end time entities are disabled by default in some Home Assistant versions. Enable those source entities on the Roborock device page before using the off-peak or charging-status add-ons.
