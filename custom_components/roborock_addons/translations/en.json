@@ -8,6 +8,7 @@
       "user": {
         "data": {
           "charging_status": "Charging status",
+          "cleaning_count": "Cleaning count",
           "fan_speed": "Fan speed selector",
           "off_peak": "Off-peak",
           "stop_before_dock": "Stop before dock",
@@ -28,6 +29,9 @@
       }
     },
     "select": {
+      "cleaning_count": {
+        "name": "Cleaning count"
+      },
       "fan_speed": {
         "name": "Fan speed"
       }
@@ -53,6 +57,7 @@
       "init": {
         "data": {
           "charging_status": "Charging status",
+          "cleaning_count": "Cleaning count",
           "fan_speed": "Fan speed selector",
           "off_peak": "Off-peak",
           "stop_before_dock": "Stop before dock",

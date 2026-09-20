@@ -8,7 +8,8 @@ from homeassistant.const import ATTR_ENTITY_ID, EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from .const import CONF_ENABLED_ENTITIES, ENTITY_FAN_SPEED
+from .cleaning_count import async_setup_cleaning_count
+from .const import CONF_ENABLED_ENTITIES, ENTITY_CLEANING_COUNT, ENTITY_FAN_SPEED
 from .helpers import RoborockAddonEntity, RoborockVacuumInfo, async_get_roborock_vacuums
 
 ATTR_FAN_SPEED = "fan_speed"
@@ -31,12 +32,13 @@ async def async_setup_entry(
     enabled = entry.options.get(
         CONF_ENABLED_ENTITIES, entry.data.get(CONF_ENABLED_ENTITIES, [])
     )
-    if ENTITY_FAN_SPEED not in enabled:
-        return
-    async_add_entities(
-        RoborockFanSpeedSelect(vacuum)
-        for vacuum in async_get_roborock_vacuums(hass)
-    )
+    if ENTITY_FAN_SPEED in enabled:
+        async_add_entities(
+            RoborockFanSpeedSelect(vacuum)
+            for vacuum in async_get_roborock_vacuums(hass)
+        )
+    if ENTITY_CLEANING_COUNT in enabled:
+        await async_setup_cleaning_count(hass, entry, async_add_entities)
 
 
 class RoborockFanSpeedSelect(RoborockAddonEntity, SelectEntity):
