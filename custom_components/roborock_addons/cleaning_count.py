@@ -103,6 +103,7 @@ class RoborockCleaningCountSelect(SelectEntity):
 
     _attr_entity_category = EntityCategory.CONFIG
     _attr_has_entity_name = True
+    _attr_should_poll = True
     _attr_translation_key = "cleaning_count"
 
     def __init__(
@@ -137,6 +138,10 @@ class RoborockCleaningCountSelect(SelectEntity):
         self.async_on_remove(
             self.coordinator.async_add_listener(self.async_write_ha_state)
         )
+
+    async def async_update(self) -> None:
+        """Fetch repeat so changes made in the Roborock app reach Home Assistant."""
+        await self.coordinator.properties_api.status.refresh()
 
     async def async_select_option(self, option: str) -> None:
         """Set repeat on the robot and refresh its actual status."""
