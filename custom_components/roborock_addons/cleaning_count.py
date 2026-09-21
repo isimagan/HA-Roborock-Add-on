@@ -6,6 +6,9 @@ cleaning count is supported by the official Roborock integration.
 
 from __future__ import annotations
 
+import asyncio
+from datetime import datetime, timedelta
+import logging
 from typing import Any
 
 from roborock.exceptions import RoborockException
@@ -22,12 +25,16 @@ from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+from homeassistant.helpers.event import async_track_time_interval
 
 from .const import ENTITY_CLEANING_COUNT, ROBOROCK_DOMAIN
 
 # The S8 exposes one or two passes. Keep options injectable so a future
 # capability-based implementation can supply a different set per coordinator.
 DEFAULT_CLEANING_COUNT_OPTIONS = ("1", "2")
+CLEANING_COUNT_POLL_INTERVAL = timedelta(seconds=10)
+
+_LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_cleaning_count(
@@ -103,7 +110,7 @@ class RoborockCleaningCountSelect(SelectEntity):
 
     _attr_entity_category = EntityCategory.CONFIG
     _attr_has_entity_name = True
-    _attr_should_poll = True
+    _attr_should_poll = False
     _attr_translation_key = "cleaning_count"
 
     def __init__(
@@ -117,6 +124,7 @@ class RoborockCleaningCountSelect(SelectEntity):
         self.device_entry = device_entry
         self._attr_unique_id = f"{coordinator.duid_slug}_{ENTITY_CLEANING_COUNT}"
         self._attr_options = list(options)
+        self._refresh_lock = asyncio.Lock()
 
     @property
     def available(self) -> bool:
@@ -138,10 +146,27 @@ class RoborockCleaningCountSelect(SelectEntity):
         self.async_on_remove(
             self.coordinator.async_add_listener(self.async_write_ha_state)
         )
+        self.async_on_remove(
+            async_track_time_interval(
+                self.hass,
+                self._async_refresh_repeat,
+                CLEANING_COUNT_POLL_INTERVAL,
+            )
+        )
 
-    async def async_update(self) -> None:
-        """Fetch repeat so changes made in the Roborock app reach Home Assistant."""
-        await self.coordinator.properties_api.status.refresh()
+    async def _async_refresh_repeat(self, _: datetime) -> None:
+        """Fetch repeat without overlapping a previous status request."""
+        if self._refresh_lock.locked():
+            return
+
+        async with self._refresh_lock:
+            try:
+                await self.coordinator.properties_api.status.refresh()
+            except RoborockException as err:
+                _LOGGER.debug("Unable to refresh Roborock cleaning count: %s", err)
+                return
+
+        self.async_write_ha_state()
 
     async def async_select_option(self, option: str) -> None:
         """Set repeat on the robot and refresh its actual status."""

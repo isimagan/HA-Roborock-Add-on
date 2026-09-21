@@ -22,7 +22,7 @@ You can change the selection later by opening **Roborock Add-ons → Configure**
 ## Available entities
 
 - **Fan speed** (`select`, configuration) — lists the speeds supported by the vacuum and converts names such as `max_plus` to `Max+`.
-- **Cleaning count** (`select`, configuration) — selects one or two passes for the next cleaning and reports the robot's actual repeat value, including changes made in the Roborock app.
+- **Cleaning count** (`select`, configuration) — selects one or two passes for the next cleaning and reports the robot's actual repeat value. Changes made in the Roborock app normally appear within 10 seconds.
 - **Off-peak** (`binary_sensor`) — on while the configured Roborock off-peak period is active.
 - **Water equipment** (`binary_sensor`) — on when the water box or mop is not attached, or when the water tank is empty. It uses `mdi:water-off` when there is a problem and `mdi:water` otherwise. Its `mop`, `waterbox`, and `water` attributes show which equipment is available.
 - **Charging status** (`sensor`) — reports `Charged`, `Charge pending`, or `Charging`.
