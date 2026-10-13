@@ -5,7 +5,7 @@ from datetime import timedelta
 from homeassistant.components.sensor import SensorDeviceClass, SensorEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import STATE_ON, STATE_UNAVAILABLE, STATE_UNKNOWN
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.util import dt as dt_util
@@ -108,3 +108,8 @@ class RoborockChargingStatusSensor(RoborockAddonEntity, SensorEntity):
                 timedelta(minutes=1),
             )
         )
+
+    @callback
+    def async_entity_id_changed(self, old_entity_id: str) -> None:
+        """Opt in to in-place entity ID changes."""
+        super().async_entity_id_changed(old_entity_id)

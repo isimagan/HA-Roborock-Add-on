@@ -154,6 +154,11 @@ class RoborockCleaningCountSelect(SelectEntity):
             )
         )
 
+    @callback
+    def async_entity_id_changed(self, old_entity_id: str) -> None:
+        """Opt in to in-place entity ID changes."""
+        super().async_entity_id_changed(old_entity_id)
+
     async def _async_refresh_repeat(self, _: datetime) -> None:
         """Fetch repeat without overlapping a previous status request."""
         if self._refresh_lock.locked():
