@@ -134,6 +134,11 @@ class RoborockAddonEntity(Entity):
         )
 
     @callback
+    def async_entity_id_changed(self, old_entity_id: str) -> None:
+        """Opt in to in-place entity ID changes."""
+        super().async_entity_id_changed(old_entity_id)
+
+    @callback
     def _handle_source_update(self, event: Event[Any]) -> None:
         """Write state when a source entity changes."""
         self.async_write_ha_state()
